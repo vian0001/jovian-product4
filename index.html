@@ -1,408 +1,418 @@
 <!DOCTYPE html>
 <html lang="id">
-
-
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mengeksplorasi Fitur dan Lisensi pada MikroTik RouterOS</title>
+    <title>Mengenal Perangkat MikroTik dan Lini Produk Router Board</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', serif;
             line-height: 1.8;
             color: #333;
-            background: #0a0e27;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
         }
-        
-        /* Technology Background Pattern */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background-image: 
-                /* Circuit board patterns */
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                radial-gradient(circle at 80% 70%, rgba(0, 255, 127, 0.1) 1px, transparent 1px),
-                /* Grid lines */
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(180deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                /* Hexagonal pattern */
-                repeating-linear-gradient(60deg, transparent, transparent 35px, rgba(0, 255, 127, 0.03) 35px, rgba(0, 255, 127, 0.03) 70px);
-            background-size: 100px 100px, 150px 150px, 30px 30px, 30px 30px, 120px 120px;
-        }
-        
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                /* Tech glowing orbs */
-                radial-gradient(ellipse 800px 400px at 25% 20%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse 600px 300px at 75% 80%, rgba(0, 255, 127, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse 400px 200px at 50% 50%, rgba(138, 43, 226, 0.04) 0%, transparent 50%);
-        }
-        
+
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 1;
-            animation: slideIn 1s ease-out;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            margin-bottom: 50px;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideUp 1s ease-out forwards;
         }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+
+        @keyframes slideUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
-        .paper {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(0, 255, 255, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            position: relative;
-        }
-        
-        .paper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(0, 255, 255, 0.8) 25%, 
-                rgba(0, 255, 127, 0.8) 50%, 
-                rgba(138, 43, 226, 0.8) 75%, 
-                transparent 100%);
-            border-radius: 20px 20px 0 0;
-        }
-        
+
         .header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .title {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #1e293b;
-            font-weight: bold;
-            background: linear-gradient(135deg, #1e293b 0%, #00ffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .author-info {
-            font-size: 16px;
-            color: #64748b;
-            margin-bottom: 10px;
-        }
-        
-        .section {
-            margin-bottom: 35px;
-            position: relative;
-        }
-        
-        .section::before {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, 
-                rgba(0, 255, 255, 0.3) 0%, 
-                rgba(0, 255, 127, 0.3) 50%, 
-                rgba(138, 43, 226, 0.3) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .section:hover::before {
-            opacity: 1;
-        }
-        
-        .section-title {
-            font-size: 20px;
-            color: #1e293b;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid transparent;
-            background: linear-gradient(90deg, #00ffff, #00ff7f, #8a2be2) bottom/0% 2px no-repeat;
-            transition: all 0.8s ease;
-            font-weight: bold;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: 8px;
-            width: 8px;
-            height: 8px;
-            background: linear-gradient(135deg, #00ffff, #00ff7f);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .section:hover .section-title {
-            background-size: 100% 2px;
-            transform: translateX(10px);
-        }
-        
-        .section:hover .section-title::after {
-            opacity: 1;
-        }
-        
-        .content {
-            font-size: 15px;
-            color: #475569;
-            text-align: justify;
-            transition: all 0.3s ease;
-            line-height: 1.8;
-        }
-        
-        .content:hover {
-            color: #1e293b;
-        }
-        
-        .image-container {
-            text-align: center;
-            margin: 2rem 0;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(0, 255, 127, 0.05) 100%);
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-        }
-
-        .responsive-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            border: 2px solid rgba(0, 255, 255, 0.3);
-        }
-
-        .image-caption {
-            font-style: italic;
-            color: #64748b;
-            margin: 1rem 0 0.5rem;
-        }
-
-        .image-source {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            margin: 0.5rem 0;
-        }
-        
-        .conclusion {
-            background: linear-gradient(135deg, 
-                rgba(0, 255, 255, 0.1) 0%, 
-                rgba(0, 255, 127, 0.1) 50%, 
-                rgba(138, 43, 226, 0.1) 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 40px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
-        
-        .conclusion::before {
+
+        .header::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, 
-                transparent 40%, 
-                rgba(0, 255, 255, 0.05) 50%, 
-                transparent 60%);
-            animation: shimmer 4s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
         }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        
-        .bibliography {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid transparent;
-            background: linear-gradient(90deg, rgba(0, 255, 255, 0.3), rgba(0, 255, 127, 0.3), rgba(138, 43, 226, 0.3)) top/100% 2px no-repeat;
-        }
-        
-        .bib-title {
-            font-size: 22px;
-            color: #1e293b;
-            margin-bottom: 25px;
-            text-align: center;
-            background: linear-gradient(135deg, #00ffff, #00ff7f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .bib-item {
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 8px;
-            padding-left: 20px;
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
             position: relative;
+            z-index: 1;
+            animation: fadeInScale 1.5s ease-out;
         }
-        
-        .bib-item:before {
-            content: "●";
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .author-info {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1em;
+            opacity: 0.9;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 0.9; }
+        }
+
+        .content {
+            padding: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .section:nth-child(even) {
+            transform: translateX(30px);
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            color: #2c5aa0;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #4CAF50, transparent);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .section p {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .section p:hover {
+            transform: translateX(10px);
+            color: #2c5aa0;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #f0f8f0, #e8f5e8);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conclusion::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            animation: sweep 3s ease-in-out infinite;
+        }
+
+        @keyframes sweep {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: scale(0.95);
+            animation: scaleIn 1s ease-out forwards;
+        }
+
+        @keyframes scaleIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .summary-box h2 {
+            color: #1976d2;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .summary-list {
+            columns: 2;
+            column-gap: 30px;
+            list-style: none;
+        }
+
+        .summary-list li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            break-inside: avoid;
+        }
+
+        .summary-list li::before {
+            content: '▶';
             position: absolute;
             left: 0;
-            background: linear-gradient(135deg, #00ffff, #00ff7f);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 16px;
+            color: #4CAF50;
+            font-size: 0.8em;
+            animation: pulse 2s infinite;
         }
-        
-        .scroll-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #00ffff, #00ff7f, #8a2be2);
-            z-index: 1000;
-            transition: width 0.1s ease;
-            border-radius: 0 2px 2px 0;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-        
-        /* Technology floating elements */
-        .tech-elements {
+
+        .references {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        .references h2 {
+            color: #343a40;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .reference-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .reference-item:nth-child(n) {
+            animation-delay: calc(0.1s * var(--index));
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reference-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .floating-elements {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: -1;
         }
-        
-        .tech-shape {
+
+        .floating-circle {
             position: absolute;
-            opacity: 0.1;
-            animation: float 20s infinite linear;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
         }
-        
-        .tech-shape:nth-child(1) {
-            top: 10%;
+
+        .floating-circle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
             left: 10%;
-            width: 0;
-            height: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-            border-bottom: 43px solid #00ffff;
             animation-delay: 0s;
         }
-        
-        .tech-shape:nth-child(2) {
-            top: 30%;
+
+        .floating-circle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
             right: 15%;
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #00ff7f, transparent);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation-delay: -5s;
+            animation-delay: 2s;
         }
-        
-        .tech-shape:nth-child(3) {
-            bottom: 20%;
+
+        .floating-circle:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 30%;
             left: 20%;
-            width: 30px;
-            height: 30px;
-            background: #8a2be2;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-            animation-delay: -10s;
+            animation-delay: 4s;
         }
-        
+
         @keyframes float {
-            0% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
-            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.2; }
-            100% { transform: translateY(0px) rotate(360deg); opacity: 0.1; }
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
         }
-        
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 1000;
+            animation: progressBar 0.3s ease-out;
+        }
+
         @media (max-width: 768px) {
             .container {
-                padding: 20px 15px;
-            }
-
-            .paper {
-                padding: 30px 25px;
+                margin: 20px;
                 border-radius: 15px;
             }
 
-            .title {
-                font-size: 24px;
+            .header {
+                padding: 30px 20px;
             }
 
-            .section-title {
-                font-size: 18px;
+            .header h1 {
+                font-size: 2em;
             }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .summary-list {
+                columns: 1;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            .section p {
+                font-size: 1em;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="scroll-indicator" id="scrollIndicator"></div>
-    
-    <div class="tech-elements">
-        <div class="tech-shape"></div>
-        <div class="tech-shape"></div>
-        <div class="tech-shape"></div>
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
     </div>
 
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
     <div class="container">
-        <div class="paper">
-            <div class="header">
-                <div class="title">Mengeksplorasi Fitur dan Lisensi pada MikroTik RouterOS</div>
-                <div class="author-info">Pengalamatan oleh Jovian Ekasakta</div>
-                <div class="author-info">kelas XI TJKT 03, SMK Dwija Bhakti</div>
-                <div class="author-info">Dibimbing oleh Bapak Arief Wahyudin</div>
-                
-    <!-- Alternatif button yang lebih sederhana -->
-    <div style="text-align: center; margin: 40px 0;">
+        <div class="header">
+            <h1>Mengenal Perangkat MikroTik dan Lini Produk Router Board</h1>
+            <div class="author-info">
+                <p>Pengalamatan oleh Jovian Ekasakta</p>
+                <p>Kelas XI TJKT 03, SMK Dwija Bhakti 01</p>
+                <p>Dibimbing oleh Bapak Arief Wahyudin</p>
+            </div>
+            
+        </div>
+            <div style="text-align: center; margin: 40px 0;">
         <h3 style="color: rgb(11, 81, 243); margin-bottom: 20px;">click more information of me</h3>
         <a href="https://jovian-portofolio02.vercel.app/" 
            target="_blank" 
@@ -412,322 +422,700 @@
             🌟 My Portfolio
         </a>
     </div>
-    
+
+        <div class="content">
+            <div class="section fade-in">
+                <h2>1. Sejarah dan Latar Belakang MikroTik</h2>
+
+                <div class="section fade-in">
+               
+                <div class="image-container">
+                <img src="https://www.pikpng.com/pngl/m/0-8544_mikrotik-logo-png-clipart.png" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">logo Mikrotik</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://www.pikpng.com/pngl/m/0-8544_mikrotik-logo-png-clipart.png">pikpng.com</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
             </div>
+
+                <p>Dari sumber MikroTik (2025), MikroTik adalah perusahaan asal Latvia yang didirikan pada tahun 1996 untuk mengembangkan perangkat dan sistem ISP nirkabel. Sejak 1997, mereka merilis RouterOS berbasis Linux yang memudahkan pengelolaan jaringan pada PC standar. Pada tahun 2002, MikroTik memperkenalkan hardware RouterBOARD, yang mengintegrasikan RouterOS secara langsung ke dalam papan khusus. Perusahaan ini berpusat di Riga dan saat ini memiliki lebih dari 280 karyawan yang mendukung distribusi global layanan dan pelatihan.</p>
+                
+                <p>Dari sumber Wikipedia (2025), MikroTik resmi didirikan oleh John Tully dan Arnis Riekstiņš di Riga pada 14 Maret 1996. Produk awalnya berupa software RouterOS yang berjalan di hardware berbasis x86, dan pada tahun 2002 mereka meluncurkan hardware RouterBOARD dengan sistem terintegrasi. Hingga 2023, MikroTik tercatat memiliki 367 karyawan dan telah menjadi salah satu perusahaan teknologi terkemuka di Latvia.</p>
+                
+                <p>Dari sumber NetworkTik (2021), jalur waktu perkembangan MikroTik mencatat bahwa perusahaan ini berdiri sekitar tahun 1995, meluncurkan RouterOS sekitar tahun 1997, dan memperkenalkan RouterBOARD pada 2002. MikroTik beroperasi sepenuhnya dari Latvia tanpa kantor cabang, meskipun memiliki banyak distributor di seluruh dunia.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, diketahui bahwa MikroTik sudah berdiri sejak pertengahan 1990-an sebagai pengembang RouterOS, lalu mulai memproduksi hardware RouterBOARD pada awal 2000-an—menunjukkan evolusi perusahaan dari penyedia software jaringan menuju integrasi software-hardware.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>2. Pengertian dan Fungsi RouterOS</h2>
+
+                <div class="image-container">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.lThglw3O2e7im1yVyEpNngHaEM?pid=Api&P=0&h=180" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">Mikrotik</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://tse1.mm.bing.net/th/id/OIP.lThglw3O2e7im1yVyEpNngHaEM?pid=Api&P=0&h=180">tse1.mm.bing.net</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
+                <p>Dari sumber Wikipedia (2025), RouterOS adalah sistem operasi berbasis Linux (kernel Debian) yang dikembangkan khusus untuk perangkat MikroTik. Fungsi utamanya adalah mengubah RouterBOARD atau komputer berbasis x86 menjadi router dengan fitur lengkap seperti routing, firewall, hotspot, dan VPN. Sistem ini juga mendukung akses konfigurasi via berbagai antarmuka, termasuk GUI (Winbox), CLI (SSH), API, dan bahkan pengaturan berbasis MAC.</p>
+                
+                <p>Dari sumber MikroTik (2025), RouterOS merupakan OS mandiri berbasis kernel Linux versi 2.6 yang dirancang agar mudah dipasang, memiliki antarmuka sederhana, serta mendukung fitur vital seperti routing, firewall, hotspot, bandwidth management, dan VPN server. Sistem ini terus dikembangkan agar bisa dijalankan pada perangkat RouterBOARD maupun PC, menjadikan instalasi cepat dan fitur lengkap tanpa batasan.</p>
+                
+                <p>Dari sumber Netmaker (2024), RouterOS adalah sistem operasi jaringan open-source untuk manajemen routing, firewall, dan jaringan wireless—cocok digunakan di lingkungan kecil seperti rumah atau kantor kecil. Selain itu, RouterOS juga tersedia dalam versi CHR (Cloud Hosted Router) yang bisa dijalankan di lingkungan virtual atau VPS dengan opsi lisensi yang fleksibel.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, RouterOS merupakan sistem operasi jaringan berbasis Linux yang sangat fleksibel dan kaya fitur — mulai dari routing, firewall, VPN, hingga HOTSPOT—yang bisa dijalankan di perangkat MikroTik RouterBOARD maupun PC biasa, serta tersedia dalam versi cloud-hosted untuk kebutuhan virtualisasi.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>3. Pengertian RouterBOARD dan Hubungannya dengan RouterOS</h2>
+
+
+                <p>Dari sumber MikroTik (2025), RouterBOARD adalah lini hardware khusus yang diproduksi oleh MikroTik untuk menjalankan sistem operasi RouterOS. Perangkat ini dirancang agar sepenuhnya kompatibel dengan RouterOS, dan tersedia dalam berbagai bentuk mulai dari router SOHO, perangkat jaringan outdoor, hingga perangkat PCB caseless untuk solusi kustomasi.</p>
+                
+                <p>Dari sumber broadbandbuyer (2012), RouterOS merupakan sistem operasi milik MikroTik yang bisa diinstal di perangkat RouterBOARD maupun PC biasa, menjadikannya sebuah router lengkap dengan fitur-fitur seperti routing, firewall, VPN, hotspot, dan manajemen bandwidth.</p>
+                
+                <p>Dari sumber mkcontroller (2023), RouterBOARD dan RouterOS bekerja bersama untuk menyediakan solusi jaringan terlengkap. Hardware RouterBOARD mendukung RouterOS berbasis Linux, yang menghadirkan kemampuan untuk firewall, VPN, QoS, hotspot, dan kontrol bandwidth—layaknya router kelas ISP.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa RouterBOARD adalah hardware khusus yang dibuat agar kompatibel penuh dengan sistem operasi RouterOS, yang memberikan fitur lengkap untuk kebutuhan jaringan seperti routing, keamanan, dan manajemen konektivitas.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>4. Jenis RouterBOARD Berdasarkan Penggunaan</h2>
+
+                <div class="image-container">
+                <img src="https://herza.id/wp-content/uploads/2023/01/Jenis-jenis-mikrotik.png.webp" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">RouterBOARD</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://herza.id/wp-content/uploads/2023/01/Jenis-jenis-mikrotik.png.webp">herza.id</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
+             <div class="image-container">
+                <img src="https://digitalsolusigrup.co.id/wp-content/uploads/2025/02/Jenis-Jenis-Mikrotik-1024x453.webp" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">jenis jenis mikrotik</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://digitalsolusigrup.co.id/wp-content/uploads/2025/02/Jenis-Jenis-Mikrotik-1024x453.webp">digitalsolusigrup.co.id</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
+
+
+                <p>Dari sumber Herza Cloud (2023), RouterBOARD hadir dalam berbagai tipe seperti router klasik, switch, dan perangkat wireless. RouterBOARD dirancang untuk efisiensi dan keandalan, mudah diintegrasikan, memiliki daya tahan tinggi, dan mendukung pembaruan perangkat lunak berkala.</p>
+                
+                <p>Dari sumber MikroTik (produk Wireless for home and office, 2025), lini hAP Series adalah contoh RouterBOARD yang populer untuk kebutuhan rumahan dan kantor kecil. Contohnya hAP ax², hAP ac³, hingga Chateau LTE6, mendukung konektivitas Wi-Fi generasi terbaru, banyak port Ethernet, dan dukungan PoE.</p>
+                
+                <p>Dari sumber MikroTik (Produk RouterBOARD, 2025), seri RouterBOARD juga mencakup perangkat dengan kapasitas tinggi untuk skala enterprise atau ISP. Contohnya CCR Series seperti CCR2004 dan CCR2116 — router bertenaga ARM multi-core dengan kemampuan hingga 100GbE dan performa tinggi untuk routing intensif.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa RouterBOARD MikroTik tersedia dalam berbagai tipe yang disesuikan kebutuhan—dari penggunaan rumahan (hAP Series), jaringan kecil/office (router/wireless compact), hingga skala besar atau ISP (CCR Series)—yang kesemuanya kompatibel dengan RouterOS dan dirancang untuk keandalan tinggi.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>5. Seri hAP (Home Access Point) Series Populer</h2>
+
+                <div class="image-container">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.wTRKLzIzK0qb9GLJ7k45hAHaDx?pid=Api&P=0&h=180" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption"> (Home Access Point)</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://tse3.mm.bing.net/th/id/OIP.wTRKLzIzK0qb9GLJ7k45hAHaDx?pid=Api&P=0&h=180">tse3.mm.bing.net</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
+
+                <p>Dari sumber MikroTik (2025), seri hAP merupakan RouterBOARD khusus untuk rumahan dan kantor kecil. Contohnya model hAP original yang menawarkan dukungan 2.4 GHz, lima port Ethernet, PoE-out di port 5, serta USB untuk koneksi 3G/4G. Perangkat ini juga siap pakai langsung—cukup sambungkan kabel internet dan daya untuk mulai digunakan.</p>
+                
+                <p>Dari sumber MikroTik (2025), model hAP ac² adalah versi upgrade yang mendukung dual-band 2.4/5 GHz, lima port Gigabit Ethernet, USB untuk modem eksternal, dan akselerasi enkripsi IPsec. Desain universalnya memungkinkan penggunaan baik horizontal maupun vertikal.</p>
+                
+                <p>Dari sumber MikroTik (2025), terakhir ada seri hAP ax², generasi 6 dengan fitur Wi-Fi 6. Dibekali quad-core CPU 864 MHz, 1 GB RAM, PoE-in dan PoE-out, kemampuan dual-band yang lebih cepat—meningkatkan kecepatan hingga 40 % di 5 GHz dan 90 % di 2.4 GHz—meskipun dimensinya masih ringkas dan bisa dipasang di dinding juga.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa seri hAP MikroTik telah berkembang dari model dasar dengan fitur minimal (hAP), meningkat ke versi lebih kuat dengan dual-band dan Gigabit (hAP ac²), hingga generasi Wi-Fi 6 yang lebih cepat dan futuristik (hAP ax²)—semuanya cocok untuk keperluan rumahan dan kantor kecil dengan berbagai tingkat kebutuhan kinerja.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>6. Seri CCR (Cloud Core Router)</h2>
+
+                <div class="image-container">
+                <img src="https://tse4.mm.bing.net/th/id/OIP.htpM5CUjBhsFS9TZwSMSPQHaC9?pid=Api&P=0&h=180" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">Seri CCR (Cloud Core Router)</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://tse4.mm.bing.net/th/id/OIP.htpM5CUjBhsFS9TZwSMSPQHaC9?pid=Api&P=0&h=180">tse4.mm.bing.net</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
+
+                <p>Dari sumber MikroTik (2025), seri CCR adalah lini RouterBOARD kelas enterprise yang dirancang untuk beban tinggi dan performa maksimal. Contohnya model CCR2004-16G-2S+ yang menawarkan 16 port Gigabit Ethernet, 2 slot SFP+ 10G, pendingin aktif, dan performa single-core terbaik dibanding seluruh seri CCR sebelumnya. Ini menjadikannya pilihan utama untuk routing intensif dengan efisiensi energi tinggi.</p>
+                
+                <p>Dari sumber TutorialMikrotik.com (2025), CCR menggunakan CPU berbasis Tilera dengan jumlah core sangat tinggi (mulai dari 9 hingga 72 core), serta RAM hingga 16 GB. Performa CCR jauh melebihi lini RouterBOARD lainnya dalam menghadapi trafik tinggi—fitur seperti dynamic routing, firewall canggih, MPLS, VPN, dan QoS dioperasikan dengan sangat baik.</p>
+                
+                <p>Dari sumber EE-Diary (2023), CCR adalah solusi andal untuk data center karena fiturnya lengkap: support protokol kompleks (BGP, OSPF, MPLS, VRRP), banyak port Ethernet (termasuk 10 Gb), interface GUI dan CLI via RouterOS, desain rackmount, dual power supply untuk redundansi, serta harga relatif terjangkau dibanding produk sejenis dari vendor lain.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa seri CCR MikroTik dirancang untuk performa tinggi dalam skala enterprise atau ISP, menggabungkan CPU multicore dan port kecepatan tinggi dengan fitur routing canggih, antarmuka lengkap, serta komponen daya dan desain yang tahan lama—semua ditawarkan dengan harga kompetitif.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>7. Fitur Unggulan MikroTik</h2>
+
+                <div class="image-container">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.Pn9T2mZvvhHx2bboFP6H9QHaEi?pid=Api&P=0&h=180" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">Dynamic DNS server</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://tse1.mm.bing.net/th/id/OIP.Pn9T2mZvvhHx2bboFP6H9QHaEi?pid=Api&P=0&h=180">mail.elfat.id</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
             
-            <div class="section">
-                <div class="section-title">Routing (Static & Dynamic: OSPF, BGP, RIP)</div>
                 <div class="image-container">
-                    <img src="https://ccnapracticallabs.com/wp-content/uploads/2024/07/rip-ospf-eigrp-and-static-route-redistribution-feature-image-3.jpg" alt="Static & Dynamic: OSPF, BGP, RIP" class="responsive-image">
-                    <p class="image-caption">Static & Dynamic: OSPF, BGP, RIP</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://ccnapracticallabs.com/wp-content/uploads/2024/07/rip-ospf-eigrp-and-static-route-redistribution-feature-image-3.jpg">ccnapracticallabs.com</a></p>
-                </div>
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), RouterOS menyediakan routing statik dan dinamik melalui paket routing v7 yang mendukung OSPF, BGP, dan RIP. Dokumentasi menjelaskan bahwa manajemen rute dilakukan melalui RIB dan FIB dengan policy-based routing, route distance, dan route selection yang konsisten. RouterOS juga memperkenalkan routing filters dan communities untuk BGP serta area dan cost untuk OSPF, sehingga memudahkan integrasi antar domain jaringan.
-                    <br><br>
-                    Dari sumber RFC 4271 (2006), BGP-4 didefinisikan sebagai protokol routing eksterior berbasis path vector yang menggunakan atribut seperti AS_PATH, NEXT_HOP, dan LOCAL_PREF untuk pengambilan keputusan. Spesifikasi ini menekankan stabilitas dan skalabilitas untuk inter-domain routing di Internet. Implementasi RouterOS mengikuti prinsip-prinsip BGP-4 ini, memungkinkan pertukaran rute antar-AS dengan kontrol atribut yang granular.
-                    <br><br>
-                    Dari sumber RFC 2328 (1998), OSPFv2 adalah protokol link-state intra-domain yang menggunakan LSAs, pembentukan adjacency, dan perhitungan Shortest Path First untuk membangun peta topologi. Konsep area dan backbone area 0 menjadi kerangka segmentasi agar skalabel dan cepat konvergen. RouterOS menerapkan konsep-konsep utama OSPFv2 ini untuk mengoptimalkan routing dalam AS yang sama; sementara untuk RIP, prinsip distance-vector sesuai RFC 2453 (1998) juga tersedia untuk skenario sederhana.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa Dari dokumentasi MikroTik (2024), RFC 4271 untuk BGP‑4, RFC 2328 untuk OSPFv2, dan RFC 2453 untuk RIP, dapat ditegaskan bahwa RouterOS mengimplementasikan protokol routing standar industri baik untuk internal AS (OSPF, RIP) maupun antar-AS (BGP), dengan kontrol granular lewat policy-based routing, route filters, dan communities. Hal ini memastikan kompatibilitas luas dengan perangkat jaringan vendor lain, stabilitas rute sesuai standar IETF, dan fleksibilitas dalam penentuan jalur sehingga cocok untuk topologi kecil hingga skala ISP.
-                </div>
+                <img src="https://tse2.mm.bing.net/th/id/OIP.1Gt3Fob1DenbuuRXTsiPtQHaFQ?pid=Api&P=0&h=180" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">QOS monitoring</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://tse2.mm.bing.net/th/id/OIP.1Gt3Fob1DenbuuRXTsiPtQHaFQ?pid=Api&P=0&h=180">tse2.mm.bing.net</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
             </div>
 
-            <div class="section">
-                <div class="section-title">Firewall & Keamanan (Filter Rules, NAT, Mangle)</div>
-                <div class="image-container">
-                    <img src="https://i.pinimg.com/originals/3c/b1/3e/3cb13e3fd739505b4e8ee1c8e733efcf.jpg" alt="NAT" class="responsive-image">
-                    <p class="image-caption">NAT</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://i.pinimg.com/originals/3c/b1/3e/3cb13e3fd739505b4e8ee1c8e733efcf.jpg">i.pinimg.com</a></p>
-                </div>
+
+                <p>Dari sumber Netmaker (2024), RouterOS menawarkan beragam fitur penting, termasuk firewall bawaan dan kemampuan VPN. Sistem ini bersifat open-source, sehingga kamu bisa menyesuaikan router sesuai kebutuhan dan menambahkan paket fitur tambahan dari situs resmi MikroTik. Kemampuan routing-nya mencakup protokol dinamis seperti OSPF, BGP, dan RIP, serta fitur canggih seperti Policy-Based Routing dan MPLS untuk mengoptimalkan performa jaringan.</p>
                 
-                <div class="image-container">
-                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/1111-6.png" alt="Firewall" class="responsive-image">
-                    <p class="image-caption">Firewall</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://media.geeksforgeeks.org/wp-content/uploads/1111-6.png">media.geeksforgeeks.org</a></p>
-                </div>
-
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), fitur firewall RouterOS terdiri atas filter rules, NAT, dan mangle yang berjalan di atas connection tracking. Filter rules mengatur penerimaan, pemrosesan, atau penolakan paket berdasarkan kriteria seperti alamat, port, dan interface. NAT menyediakan src-nat dan dst-nat, sementara mangle memungkinkan penandaan koneksi/packet untuk kebijakan QoS atau routing lanjutan.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), mangle digunakan untuk menandai packet dan connection-mark yang kemudian dimanfaatkan oleh queue tree atau routing policy. Wiki juga menekankan penggunaan chain khusus seperti prerouting, input, forward, output, dan postrouting untuk menempatkan aturan secara efektif di jalur paket. Dengan contoh-contoh, wiki menunjukkan praktik terbaik seperti penggunaan address-list dan pemisahan rule berdasarkan fungsi.
-                    <br><br>
-                    Dari sumber RFC 3022 (2001), NAT tradisional dijelaskan sebagai mekanisme translasi alamat yang memungkinkan banyak host privat mengakses Internet menggunakan satu alamat publik. RFC ini juga mengulas implikasi terhadap protokol dan aplikasi tertentu yang sensitif terhadap perubahan alamat/port. Konsep ini selaras dengan implementasi NAT di RouterOS, termasuk port address translation (PAT).
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa firewall RouterOS dibangun di atas connection tracking sehingga mampu menggabungkan filter rules (penyaringan), NAT (translasi alamat), dan mangle (penandaan paket/koneksi) secara terpadu. Hal ini memungkinkan pengaturan keamanan adaptif sekaligus penerapan QoS dan kebijakan routing lanjut. Implementasi NAT selaras dengan definisi pada RFC 3022, memastikan pemetaan alamat publik ke privat yang terstandar, bahkan hingga port address translation (PAT).
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Wireless Management (Mode AP, Bridge, Repeater)</div>
-                <div class="image-container">
-                    <img src="https://images-na.ssl-images-amazon.com/images/G/01/aplus/detail-page/Zyxel_Wap3205v2_app_lg.jpg" alt="application diagram" class="responsive-image">
-                    <p class="image-caption">application diagram</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://images-na.ssl-images-amazon.com/images/G/01/aplus/detail-page/Zyxel_Wap3205v2_app_lg.jpg">images-na.ssl-images-amazon.com</a></p>
-                </div>
-
-                <div class="image-container">
-                    <img src="https://ipcisco.com/wp-content/uploads/2020/02/wireless-access-point-modes-bridge-mode-300x188.png" alt="application diagram" class="responsive-image">
-                    <p class="image-caption">Bridge mode</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://ipcisco.com/wp-content/uploads/2020/02/wireless-access-point-modes-bridge-mode-300x188.png">ipcisco.com</a></p>
-                </div>
-
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), RouterOS mendukung mode AP (ap-bridge) dan station, termasuk opsi bridging melalui bridge interface dan WDS sesuai paket wireless. Dokumentasi juga membahas CAPsMAN untuk kontrol terpusat AP serta dukungan paket wifiwave2 pada perangkat yang kompatibel. Dengan konfigurasi bridge yang tepat, lalu lintas layer 2 dapat diteruskan antar interface wired dan wireless.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), fitur WDS, station-bridge/station-pseudobridge, dan repeater dijelaskan sebagai metode memperluas jangkauan dan menjembatani segmen LAN. Wiki menekankan bahwa station-bridge yang "sebenarnya" memerlukan dukungan tertentu pada chipset atau metode seperti WDS/NV2 untuk bridging layer 2 yang stabil. Untuk topologi repeater, wiki menganjurkan perencanaan kanal, SSID, dan keamanan agar performa tetap terjaga.
-                    <br><br>
-                    Dari sumber IEEE 802.11 Standard (2016), kerangka kerja MAC/PHY Wi‑Fi mendefinisikan operasi mode AP dan STA serta mekanisme asosiasi dan manajemen. Standar ini menjelaskan bahwa bridging layer 2 bergantung pada implementasi vendor ketika melewati batasan tertentu dari 802.11. RouterOS mengimplementasikan mode-mode ini sesuai standar inti, lalu menambahkan opsi vendor (seperti WDS) demi bridging praktis di lapangan.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa RouterOS mematuhi standar Wi‑Fi internasional untuk mode Access Point, Station, dan Bridging, serta menambahkan opsi vendor seperti WDS dan CAPsMAN untuk pengelolaan terpusat. Implementasi bridging (termasuk station‑bridge/station‑pseudobridge) dibangun untuk interoperabilitas sambil mempertahankan fleksibilitas topologi, di mana opsi vendor membantu mengatasi batasan layer 2 pada standar 802.11.
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Bandwidth Management (Queue Tree & Simple Queue)</div>
-
-                                <div class="image-container">
-                    <img src="https://creanord.com/wp-content/uploads/2022/07/Bandwidth-Management-Evolution.png" alt="application diagram" class="responsive-image">
-                    <p class="image-caption">bandwidth management</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://creanord.com/wp-content/uploads/2022/07/Bandwidth-Management-Evolution.png">creanord.com</a></p>
-                </div>
-
-
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), Simple Queue memudahkan pembatasan bandwidth per host atau per subnet dengan konfigurasi cepat. Queue Tree memungkinkan hierarki antrian yang kompleks, pengelompokan berdasarkan mark, dan penerapan HTB/PCQ untuk pembagian adil. Dokumentasi menekankan pemilihan queue type yang tepat dan penempatan mark melalui mangle untuk hasil QoS yang konsisten.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), PCQ (Per-Connection Queuing) direkomendasikan untuk pembagian bandwidth adil antar banyak pengguna tanpa konfigurasi individual. Wiki juga menunjukkan pola umum: mangle untuk menandai traffic dan queue tree untuk menerapkan kebijakan berdasarkan mark. Contoh konfigurasi memperlihatkan bagaimana burst, limit-at, dan max-limit mengendalikan pengalaman pengguna.
-                    <br><br>
-                    Dari sumber LARTC HTB Guide (2002), Hierarchical Token Bucket dijelaskan sebagai algoritme penjadwalan antrian yang memungkinkan kontrol rate hierarkis dan prioritas. Panduan ini menekankan bagaimana HTB membagi token antar kelas sehingga setiap kelas mendapat jatah minimum dan maksimum. Konsep HTB yang dipaparkan menjadi dasar teoritis bagi implementasi queue tree di RouterOS.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa fitur Simple Queue cocok untuk pembatasan bandwidth cepat berbasis alamat/subnet, sedangkan Queue Tree menggunakan algoritme Hierarchical Token Bucket (HTB) dan Per-Connection Queuing (PCQ) untuk pembagian trafik yang seimbang dan terstruktur. Dengan kombinasi mangle‑mark dan antrian hierarkis, RouterOS dapat menerapkan kebijakan QoS presisi tinggi yang adil untuk skala jaringan besar.
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">VPN (PPTP, L2TP, SSTP, OpenVPN)</div>
-
-                                                <div class="image-container">
-                    <img src="https://tr.vpnmentor.com/wp-content/uploads/2016/01/vpn-protocol-comparison.jpg" alt="application diagram" class="responsive-image">
-                    <p class="image-caption">PPTP, L2TP, SSTP, OpenVPN</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://tr.vpnmentor.com/wp-content/uploads/2016/01/vpn-protocol-comparison.jpg">tr.vpnmentor.com</a></p>
-                </div>
-
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), RouterOS mendukung berbagai VPN seperti PPTP, L2TP, SSTP, dan OpenVPN melalui subsistem PPP. Dokumentasi menganjurkan kombinasi L2TP dengan IPsec untuk keamanan yang lebih kuat, sementara SSTP memanfaatkan TLS. OpenVPN didukung sebagai server dan/atau client tergantung versi RouterOS, dengan opsi sertifikat dan otentikasi yang sesuai.
-                    <br><br>
-                    Dari sumber RFC 2661 (1999), L2TP didefinisikan sebagai protokol tunneling layer 2 yang mengenkapsulasi PPP melalui jaringan IP. RFC menjelaskan peran LNS dan LAC serta proses kontrol untuk membangun dan memelihara sesi. Prinsip-prinsip ini menjadi dasar bagi implementasi L2TP di RouterOS, biasanya dipadukan dengan IPsec untuk enkripsi.
-                    <br><br>
-                    Dari sumber OpenVPN Documentation (2020), OpenVPN menggunakan TLS untuk pertukaran kunci dan dapat dikonfigurasi dengan sertifikat CA, server, dan client untuk autentikasi mutual. Dokumentasi menyoroti fleksibilitas topologi tun/tap serta opsi cipher modern. RouterOS mengadopsi prinsip OpenVPN ini sehingga integrasi dengan infrastruktur PKI menjadi praktis.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa RouterOS mendukung VPN berbasis PPP (PPTP, L2TP) serta berbasis TLS (SSTP, OpenVPN) dengan opsi sertifikat dan enkripsi. Praktik terbaik dari MikroTik adalah L2TP/IPsec atau OpenVPN bersertifikat untuk keamanan optimal. Implementasinya selaras dengan prinsip standar masing‑masing protokol, memastikan interoperabilitas dan keamanan end‑to‑end.
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Hotspot & User Management (Login page, pengaturan user)</div>
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), fitur Hotspot menyediakan captive portal dengan login page yang dapat dikustomisasi, walled garden, dan profil pengguna. Dokumentasi menjelaskan integrasi dengan RADIUS dan bandwidth shaping per profil atau user. Manajemen sesi, idle-timeout, dan cookie login didukung untuk pengalaman pengguna yang konsisten.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), User Manager dijelaskan sebagai server RADIUS untuk autentikasi, otorisasi, dan akuntansi yang terintegrasi dengan Hotspot/PPP. Wiki menampilkan pengelolaan paket, profil, limit kuota, dan laporan penggunaan. Hal ini memudahkan penyedia jasa lokal atau kampus untuk mengelola banyak akun secara terpusat.
-                    <br><br>
-                    Dari sumber RFC 2865 (2000), RADIUS didefinisikan sebagai protokol AAA yang menggunakan paket Access-Request, Access-Accept/Reject, dan Accounting. RFC menjelaskan penggunaan shared secret dan atribut-atribut standar untuk kebijakan akses. Integrasi Hotspot dan User Manager dengan RADIUS mengikuti pola standar ini untuk interoperabilitas.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa fitur Hotspot RouterOS menyediakan captive portal dengan integrasi RADIUS serta manajemen pengguna berbasis User Manager untuk AAA (Authentication, Authorization, Accounting). Hal ini memungkinkan kontrol kuota, profil pengguna, dan akuntansi secara terpusat, mengikuti mekanisme standar RADIUS (Access-Request/Accept/Reject) dan mendukung interoperabilitas dengan sistem pihak ketiga.
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Monitoring & Logging (Torch, Packet Sniffer, Graphing)</div>
-
-                                                <div class="image-container">
-                    <img src="https://www.vssmonitoring.com/wp-content/uploads/2020/01/packet-sniffing-software-screenshot-768x410.png" alt="application diagram" class="responsive-image">
-                    <p class="image-caption"> (Torch, Packet Sniffer, Graphing)</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://www.vssmonitoring.com/wp-content/uploads/2020/01/packet-sniffing-software-screenshot-768x410.png">vssmonitoring.com</a></p>
-                </div>
-
-
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), Torch adalah alat pemantauan real-time per alamat/port/protokol untuk melihat siapa menggunakan bandwidth. Packet Sniffer memungkinkan perekaman paket pcap untuk analisis mendalam dengan Wireshark. Fitur Graphing mengumpulkan statistik interface dan queue sehingga tren performa dapat divisualisasikan.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), praktik terbaik menyarankan penggunaan Torch untuk triase cepat dan Packet Sniffer untuk kasus yang membutuhkan bukti paket. Wiki juga menekankan logging terstruktur dengan topics dan action agar mudah diekspor atau dianalisis. Kombinasi tool internal meminimalkan kebutuhan perangkat lunak eksternal pada troubleshooting sehari-hari.
-                    <br><br>
-                    Dari sumber RFC 3411 (2002), kerangka kerja SNMP didefinisikan untuk pengelolaan perangkat jaringan secara standar. Dengan SNMP, pengumpul dapat menanyakan OIDs dan menerima traps untuk peringatan. Walau terpisah dari Torch/Sniffer, SNMP melengkapi Graphing/monitoring RouterOS untuk observabilitas jangka panjang.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa RouterOS menawarkan monitoring real-time (Torch), perekaman paket (Packet Sniffer), dan visualisasi data (Graphing), diperluas dengan dukungan SNMP untuk manajemen berbasis standar. Kombinasi ini menghasilkan observabilitas jaringan end-to-end, mulai dari pemantauan cepat hingga analisis forensik dan pemantauan jangka panjang.
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">IP Services (DHCP, DNS, NTP, SNMP)</div>
-
-                                                                <div class="image-container">
-                    <img src="https://image.slideserve.com/272719/slide8-l.jpg" alt="application diagram" class="responsive-image">
-                    <p class="image-caption">DHCP </p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://image.slideserve.com/272719/slide8-l.jpg">image.slideserve.com</a></p>
-                </div>
- 
-                                <div class="image-container">
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.P167qtl9PEQsJrfcinlJ8QHaEP?pid=Api&P=0&h=180" alt="NAT" class="responsive-image">
-                    <p class="image-caption">DNS</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://tse3.mm.bing.net/th/id/OIP.P167qtl9PEQsJrfcinlJ8QHaEP?pid=Api&P=0&h=180">tse3.mm.bing.net</a></p>
-                </div>
+                <p>Dari sumber MikroTik (halaman resmi Software, 2025), RouterOS mendukung routing, firewall, manajemen bandwidth, akses nirkabel, hotspot gateway, VPN server, dan banyak lagi. Kamu bisa menginstal OS ini pada perangkat RouterBOARD atau PC biasa. Banyak tools juga tersedia seperti Winbox (GUI), WebFig, SSH, API, serta scripting untuk otomatisasi.</p>
                 
-                                <div class="image-container">
-                    <img src="https://www.zenarmor.com/docs/de/assets/images/figure-2-howntpworks-0b7a2c8c91dce9e29b2a8197505017b8.png" alt="NAT" class="responsive-image">
-                    <p class="image-caption">NTP</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://www.zenarmor.com/docs/de/assets/images/figure-2-howntpworks-0b7a2c8c91dce9e29b2a8197505017b8.png">zenarmor.com</a></p>
-                </div>
+                <p>Dari sumber Dokumentasi MikroTik (2025), RouterOS dibekali berbagai fitur tambahan seperti Samba, OpenFlow, bridging (STP, RSTP), dynamic DNS, VRRP, SNMP, serta scripting otomatis. Encryption juga lengkap dengan IPSec, PPTP, SSTP, WireGuard (v7), SSH, dan lainnya, menjadikan MikroTik fleksibel dan aman untuk berbagai skenario jaringan.</p>
                 
-                                <div class="image-container">
-                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20220907123817/snmpenumeration-768x428.jpg" alt="NAT" class="responsive-image">
-                    <p class="image-caption">SNMP</p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://media.geeksforgeeks.org/wp-content/uploads/20220907123817/snmpenumeration-768x428.jpg">i.pinimg.com</a></p>
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa RouterOS dilengkapi berbagai fitur unggulan—mulai dari routing dinamis, firewall canggih, VPN, hotspot, hingga alat manajemen lanjutan (QoS, scripting, monitoring)—yang membuat MikroTik menjadi solusi jaringan serba guna, tangguh, dan sangat fleksibel untuk berbagai kebutuhan, dari rumah hingga enterprise.</p>
                 </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>8. Kelebihan MikroTik Dibanding Router Lain</h2>
+
+               
+                <div class="image-container">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.1Gt3Fob1DenbuuRXTsiPtQHaFQ?pid=Api&P=0&h=180" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">QOS monitoring</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://tse2.mm.bing.net/th/id/OIP.1Gt3Fob1DenbuuRXTsiPtQHaFQ?pid=Api&P=0&h=180">tse2.mm.bing.net</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
+            </div>
+
+                <p>Dari sumber MKController (2024), MikroTik dikenal karena biaya yang terjangkau namun memiliki banyak fitur canggih. Perangkat MikroTik menawarkan fleksibilitas tinggi dan skalabilitas, mendukung berbagai protokol, memiliki pembaruan rutin, dan didukung oleh komunitas pengguna yang aktif—semua fasilitas ini tersedia dengan harga kompetitif.</p>
+                
+                <p>Dari sumber PeerSpot (2025), MikroTik unggul dalam fleksibilitas konfigurasi dan kemampuan firewall yang tangguh—ini dikembangkan bekerja sama dengan Cisco. Mereka memiliki opsi multi-routing, load balancing, serta mudah dalam pemeliharaan dan pemasangan. Performa dan stabilitasnya solid, ideal untuk beragam kebutuhan jaringan mulai dari VPN hingga hotspot Wi-Fi.</p>
+                
+                <p>Dari sumber 1Gbits (2024), MikroTik menonjol dengan kemampuan routing lanjutan, proteksi firewall, dan fitur QoS—semua tersedia dengan harga yang lebih terjangkau dibanding Cisco. Mereka mendukung multi-WAN, konfigurasi yang cukup mudah, dan memiliki portofolio perangkat jaringan yang lengkap, membuatnya unggul dalam fleksibilitas penggunaan.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa MikroTik menawarkan kombinasi biaya rendah, fleksibilitas tinggi, dan fitur canggih seperti routing dinamis, firewall kuat, load balancing, serta QoS—fitur-fitur ini biasanya ditemukan di perangkat kelas enterprise dengan harga jauh lebih tinggi.</p>
+                </div>
+            </div>
+
+            <div class="section fade-in">
+                <h2>9. Kekurangan dan Tantangan Penggunaan MikroTik</h2>
                 
 
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), RouterOS menyediakan DHCP server/client, DNS cache/forwarder, NTP client/server, serta SNMP agent. DHCP dapat mengelola lease, reservation, dan opsi; DNS mendukung static entries dan caching. NTP memastikan sinkronisasi waktu, dan SNMP membuka akses monitoring terstandar.
-                    <br><br>
-                    Dari sumber RFC 2131 (1997), DHCP didefinisikan sebagai mekanisme dinamis untuk pemberian alamat IP dan parameter jaringan kepada host. RFC menjelaskan proses DORA dan pentingnya lease time. Implementasi DHCP di RouterOS mengikuti pola standar ini untuk kompatibilitas lintas vendor.
-                    <br><br>
-                    Dari sumber RFC 1035 (1987) dan RFC 5905 (2010), DNS mendefinisikan resolusi nama dan format pesan kueri serta respons, sementara NTP menguraikan algoritme sinkronisasi waktu yang presisi. Keduanya menjadi fondasi layanan nama dan waktu yang andal. RouterOS memanfaatkan prinsip-prinsip ini untuk menyediakan DNS caching dan NTP yang stabil di jaringan lokal.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa RouterOS menyediakan layanan fundamental jaringan sesuai standar protokol IETF. DHCP mengotomatiskan alamat IP, DNS mempercepat resolusi nama lewat caching, NTP menjaga sinkronisasi waktu, dan SNMP memberi jalur monitoring terstandar. Hal ini menjadikan RouterOS pilar layanan inti yang andal untuk LAN maupun infrastruktur besar.
+                <p>Dari sumber PeerSpot (2025), MikroTik memiliki beberapa area yang perlu peningkatan, terutama dalam hal throughput wireless yang masih kalah dari kompetitor dan setup awal yang bisa terasa rumit dan memakan waktu. Dokumentasi dan tutorial terbaru juga dinilai belum sepenuhnya memadai, menimbulkan kesulitan bagi pengguna baru untuk memahami fitur lanjutan.</p>
+
+                <p>Dari sumber Wikipedia (2025), perangkat MikroTik telah terdeteksi rentan terhadap beberapa ancaman keamanan serius. Contohnya adalah kerentanan WinBox directory traversal (CVE-2018-14847), ekspos terhadap malware seperti VPNFilter, botnet Meris, dan exploit FOISted yang memungkinkan akses super-admin hingga potensi serangan DDoS.</p>
+
+                <p>Dari diskusi forum MikroTik (2025), banyak pengguna melaporkan bahwa kurva pembelajaran RouterOS sangat curam, bahkan bagi praktisi IT berpengalaman. Salah satu menyebut: "RouterOS has a very steep learning curve … but once I understand it, it's amazing what you can do with it." Kelemahan ini menjadi tantangan besar dalam penggunaan praktis harian, terutama untuk setting yang kompleks.</p>
+
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa MikroTik memiliki beberapa kekurangan nyata: Perangkat wireless masih kalah kencang dibanding kompetitor. Setup awal dan dokumentasi belum seintuitif merek-merek lain. Ada sejumlah celah keamanan serius yang memerlukan perhatian dan pembaruan. Kurva belajar yang tajam membuat pengguna newbie mandiri kesulitan menguasainya.</p>
                 </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">Scripting & Automation (Scheduler, Script CLI)</div>
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), bahasa scripting RouterOS memungkinkan otomatisasi tugas seperti backup, pemeliharaan firewall, atau rotasi log. Scheduler menjalankan skrip berdasarkan waktu atau interval, sementara environment variables dan error handling mendukung skenario yang lebih kompleks. Dokumentasi juga mencontohkan interaksi antar subsistem (IP, Wireless, Queues) melalui CLI script.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), contoh-contoh skrip praktis seperti monitoring link, failover gateway, dan pengelolaan queue dipaparkan. Wiki menyarankan struktur skrip yang modular dan aman, termasuk pembatasan akses dan logging hasil eksekusi. Integrasi dengan Netwatch, scheduler, dan event system membuat automasi menjadi konsisten.
-                    <br><br>
-                    Dari sumber Ansible Documentation (2024), koleksi community.routeros menyediakan modul untuk mengelola RouterOS secara deklaratif. Dokumentasi menjelaskan autentikasi, idempotency, dan contoh playbook untuk mengonfigurasi firewall, IP address, dan VLAN. Ini menunjukkan bahwa otomasi RouterOS dapat pula diorkestrasi dari luar menggunakan alat DevOps modern.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa otomasi RouterOS dapat dilakukan dari dalam (scripting + scheduler) maupun dari luar (orchestration Ansible). Penggunaan variable, error handling, dan integrasi antar subsistem memberikan fleksibilitas untuk tugas rutin hingga skenario kompleks, sedangkan Ansible memberikan idempotensi dan skalabilitas untuk manajemen multi-node.
-                </div>
+            <div class="section fade-in">
+                <h2>10. Kesimpulan dan Tren Masa Depan Produk MikroTik</h2>
+                <div class="image-container">
+                <img src="https://www.pikpng.com/pngl/m/0-8544_mikrotik-logo-png-clipart.png" alt="Deskripsi gambar" class="responsive-image">
+                <p class="image-caption">logo Mikrotik</p>
+                <p class="image-source"><strong>Sumber:</strong> <a href="https://www.pikpng.com/pngl/m/0-8544_mikrotik-logo-png-clipart.png">pikpng.com</a></p>
+            <style>
+            .image-container {
+                text-align: center;
+                margin: 2rem 0;
+                background-color: #f8f9fa;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .responsive-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+
+            .image-caption {
+                font-style: italic;
+                color: #666;
+                margin: 1rem 0 0.5rem;
+            }
+
+            .image-source {
+                font-size: 0.9rem;
+                color: #888;
+                margin: 0.5rem 0;
+            }
+            </style>
             </div>
 
-            <div class="section">
-                <div class="section-title">Jenis Lisensi MikroTik OS (Level 0 sampai Level 6)</div>
-
-                                                                <div class="image-container">
-                    <img src="https://4.bp.blogspot.com/-MOoRhjpyTI8/W6ziBj4LnFI/AAAAAAAAAjw/tYGQBg8jjWwC1iYaP4iw9hgDTEJvljDYgCLcBGAs/s1600/mikrotik.png" alt="application diagram" class="responsive-image">
-                    <p class="image-caption"> Lisensi MikroTik OS (Level 0 sampai Level 6) </p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://4.bp.blogspot.com/-MOoRhjpyTI8/W6ziBj4LnFI/AAAAAAAAAjw/tYGQBg8jjWwC1iYaP4iw9hgDTEJvljDYgCLcBGAs/s1600/mikrotik.png">bp.blogspot.com</a></p>
-                </div>
-
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), lisensi RouterOS tradisional memiliki level L3, L4, L5, dan L6 yang umumnya tertanam pada perangkat (bundled). Dokumentasi menjelaskan bahwa tiap level mengaktifkan kemampuan tertentu, terutama pada fitur wireless AP dan batasan jumlah tertentu pada layanan spesifik. Selain itu, varian CHR (Cloud Hosted Router) menggunakan skema lisensi berbeda dari perangkat fisik.
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), Level 0/Level 1 historis disebut sebagai demo/trial dengan keterbatasan waktu dan fitur, sedangkan L3 ditujukan untuk CPE (client), L4 untuk AP, L5 meningkatkan batasan, dan L6 membuka fitur paling luas. Wiki juga membedakan lisensi bundel perangkat RouterBOARD dan lisensi yang dapat diupgrade. Informasi ini membantu memahami evolusi kebijakan lisensi dari generasi ke generasi.
-                    <br><br>
-                    Dari sumber MikroTik CHR Licensing (2024), CHR menawarkan tier seperti Free, P1, P10, dan P-Unlimited dengan perbedaan throughput atau kapasitas. Lisensi CHR diaktivasi secara digital dan cocok untuk lingkungan virtual/cloud. Hal ini melengkapi skema lisensi berbasis level pada perangkat fisik.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa lisensi RouterOS terbagi dua: lisensi fisik tradisional (L3 sampai L6) dan lisensi CHR (Free, P1, P10, P‑Unlimited). Perbedaan utamanya terkait kapasitas dan peran: L3 untuk CPE, L4 untuk AP, L5 memperluas batas, dan L6 tanpa batas signifikan. CHR fokus pada lingkungan virtual/cloud dengan skema throughput.
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-title">Perbedaan Fitur Tiap Level Lisensi</div>
-
+                <p>Dari sumber MikroTik (2025), perusahaan baru saja merilis ROSE Data Server (RDS)—platform penyimpanan dan container all-in-one dengan jaringan 100 G dan berbasis RouterOS khusus Storage & Compute. Ini menunjukkan bahwa MikroTik tengah berekspansi bukan hanya di ranah routing, tetapi juga infrastruktur data center dan cloud-native environments.</p>
                 
-                                                                <div class="image-container">
-                    <img src="https://4.bp.blogspot.com/-MOoRhjpyTI8/W6ziBj4LnFI/AAAAAAAAAjw/tYGQBg8jjWwC1iYaP4iw9hgDTEJvljDYgCLcBGAs/s1600/mikrotik.png" alt="application diagram" class="responsive-image">
-                    <p class="image-caption"> Lisensi MikroTik OS (Level 0 sampai Level 6) </p>
-                    <p class="image-source"><strong>Sumber:</strong> <a href="https://4.bp.blogspot.com/-MOoRhjpyTI8/W6ziBj4LnFI/AAAAAAAAAjw/tYGQBg8jjWwC1iYaP4iw9hgDTEJvljDYgCLcBGAs/s1600/mikrotik.png">bp.blogspot.com</a></p>
-                </div>
+                <p>Dari sumber MikroTik Documentation (September 2024), MikroTik bekerja sama dengan Ampere Technologies untuk mengembangkan lini produk baru yang menggunakan server-class CPUs. Produk ini ditujukan untuk memenuhi kebutuhan data center dan edge computing—inovasi strategis yang memungkinkan performa tinggi dengan efisiensi biaya dan daya.</p>
 
+                <p>Dari komunitas pengguna MikroTik di Reddit (2025), meskipun roadmap resmi jarang dibagikan, banyak pengguna berharap MikroTik akan segera mendukung standar Wi-Fi 7 (802.11be) serta menghadirkan model dengan SFP+ antarmuka dan konektivitas 5G global. Hal ini mencerminkan antisipasi kuat terhadap perangkat masa depan yang lebih cepat dan lebih fleksibel.</p>
 
-                <div class="content">
-                    Dari sumber MikroTik Documentation (2024), perbedaan lisensi terutama memengaruhi kemampuan wireless (mis. AP mode pada L4 ke atas) dan berbagai batas operasional tertentu. Dokumen menegaskan bahwa core routing, switching, dan firewall tersedia luas, sementara lisensi menaikkan plafon pada skenario spesifik. Dengan demikian, pemilihan level harus menyesuaikan peran perangkat (CPE vs AP vs core).
-                    <br><br>
-                    Dari sumber MikroTik Wiki (2023), L3 diposisikan untuk WISP CPE (mode klien), L4 mengaktifkan AP-bridge dan fitur hotspot yang lebih lapang, L5 memperluas sejumlah kuota, dan L6 menyediakan batas paling longgar atau tak terbatas pada aspek-aspek tertentu. Wiki menekankan bahwa angka batas dapat berbeda per rilis historis, sehingga merujuk tabel resmi mutakhir sangat dianjurkan. Prinsip umumnya: semakin tinggi level, semakin longgar batas fungsional.
-                    <br><br>
-                    Dari sumber MikroTik Software Page (2024), halaman perangkat lunak merangkum profil lisensi dan paket yang relevan, termasuk gambaran fitur yang dibuka per level dan untuk CHR. Ringkasan ini membantu memilih lisensi sesuai kebutuhan tanpa membayar berlebihan. Informasi resmi ini menjadi rujukan praktis ketika merencanakan kapasitas jaringan.
-                    <br><br>
-                    Dari 3 pendapat tersebut dapat disimpulkan bahwa semua lisensi memiliki fitur inti routing, switching, dan firewall. Perbedaan utamanya berada pada kemampuan wireless, batas jumlah koneksi, dan kapasitas hotspot. Semakin tinggi level, semakin longgar batasan fungsional, sehingga pemilihan level harus disesuaikan dengan peran perangkat—apakah CPE sederhana, AP, atau core router.
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa MikroTik sedang bergerak ke arah diversifikasi dan modernisasi produk. Mereka tidak hanya memperkuat lini router, tetapi juga masuk ke solusi data center (ROSE), memperkuat performa dengan prosesor server-class (kolaborasi Ampere), dan menjawab kebutuhan pasar masa depan—seperti Wi-Fi 7 dan konektivitas 5G. Ini menunjukkan komitmen mereka terhadap inovasi teknologi jaringan yang tidak hanya relevan hari ini, tetapi juga siap menghadapi tantangan komputasi masa depan.</p>
                 </div>
             </div>
 
-            <div class="conclusion">
-                <div class="section-title">Kesimpulan Umum</div>
-                <div class="content">
-                    Secara keseluruhan, MikroTik RouterOS menawarkan fondasi jaringan yang komprehensif: routing standar industri (OSPF, BGP, RIP), firewall canggih (filter, NAT, mangle), manajemen wireless yang luas, dan QoS yang fleksibel. Layanan IP, monitoring, logging, serta otomasi melalui scripting memperkokoh operasional harian. Skema lisensi yang bertingkat—ditambah opsi CHR—memungkinkan penyesuaian fitur dan kapasitas sesuai skenario, dari CPE kecil hingga infrastruktur inti dan cloud.
+            <div class="summary-box fade-in">
+                <h2>Ringkasan Artikel "Mengenal MikroTik"</h2>
+                <ul class="summary-list">
+                    <li>Sejarah dan Latar Belakang MikroTik</li>
+                    <li>Pengertian dan Fungsi RouterOS</li>
+                    <li>Pengertian RouterBOARD dan Hubungannya dengan RouterOS</li>
+                    <li>Jenis RouterBOARD Berdasarkan Penggunaan</li>
+                    <li>Seri RouterBOARD Populer: hAP Series</li>
+                    <li>Seri CCR (Cloud Core Router) Series</li>
+                    <li>Fitur Unggulan MikroTik</li>
+                    <li>Kelebihan MikroTik Dibanding Router Lain</li>
+                    <li>Kekurangan dan Tantangan Penggunaan MikroTik</li>
+                    <li>Kesimpulan dan Tren Masa Depan Produk MikroTik</li>
+                </ul>
+            </div>
+
+            <div class="section fade-in">
+                <h2>11. Dukungan, Komunitas, dan Pelatihan MikroTik</h2>
+                <p>Dari sumber MikroTik (2025), jika mengalami kendala teknis, pengguna dapat mengakses dokumentasi resmi RouterOS dan platform pendukungnya, serta melibatkan pihak distributor atau tim dukungan MikroTik. Namun, tanggapan email melalui support resmi dapat memakan waktu hingga 3 hari kerja. Untuk bantuan lebih cepat, tersedia juga opsi penyewaan certified consultation specialist di wilayah masing-masing.</p>
+                
+                <p>Dari sumber MikroTik (Training, 2025), tersedia berbagai program pelatihan dan sertifikasi resmi, seperti MTCNA, MTCRE, MTCWE, hingga MTCSE dan lainnya. Ada juga program "Train the Trainer" bagi yang ingin menjadi instruktur bersertifikat dan menyelenggarakan pelatihan MikroTik secara global.</p>
+                
+                <p>Dari sumber Enlyft (2025), tercatat bahwa mayoritas pengguna MikroTik berasal dari segmen bisnis kecil dan menengah: 22 % di AS, 10 % di Brasil, 8 % di Indonesia. Industri mayoritas pengguna adalah IT & Services (21 %), Telekomunikasi (13 %), dan Software (7 %). Komunitas global aktif mendukung edukasi dan penggunaan MikroTik lewat forum dan media sosial.</p>
+                
+                <div class="conclusion">
+                    <p>Dari ketiga pendapat tersebut, dapat disimpulkan bahwa MikroTik menyediakan dukungan resmi dan pelatihan bertingkat, memungkinkan pengguna mengakses dokumentasi dan konsultasi bersertifikat. Selain itu, komunitas internasional yang besar dan pelatihan resmi menawarkan ruang pengembangan serta berbagi pengalaman teknis secara luas.</p>
                 </div>
             </div>
 
-            <div class="bibliography">
-                <div class="bib-title">Daftar Pustaka</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Unicast Routing (RouterOS v7), https://help.mikrotik.com/docs/display/ROS/Unicast+Routing, Diakses: 9 Agustus 2025, 13:12</div>
-                <div class="bib-item">MikroTik Documentation, 2024, BGP (RouterOS v7), https://help.mikrotik.com/docs/display/ROS/BGP, Diakses: 9 Agustus 2025, 13:18</div>
-                <div class="bib-item">MikroTik Documentation, 2024, OSPF (RouterOS v7), https://help.mikrotik.com/docs/display/ROS/OSPF, Diakses: 9 Agustus 2025, 13:26</div>
-                <div class="bib-item">MikroTik Documentation, 2024, RIP (RouterOS v7), https://help.mikrotik.com/docs/display/ROS/RIP, Diakses: 9 Agustus 2025, 13:34</div>
-                <div class="bib-item">MikroTik Documentation, 2024, IP/Firewall, https://help.mikrotik.com/docs/display/ROS/Firewall, Diakses: 9 Agustus 2025, 13:42</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Wireless (RouterOS v7), https://help.mikrotik.com/docs/display/ROS/Wireless, Diakses: 9 Agustus 2025, 13:57</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Bridge, https://help.mikrotik.com/docs/display/ROS/Bridge, Diakses: 9 Agustus 2025, 14:05</div>
-                <div class="bib-item">MikroTik Documentation, 2024, CAPsMAN, https://help.mikrotik.com/docs/display/ROS/CAPsMAN, Diakses: 9 Agustus 2025, 14:17</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Queue, https://help.mikrotik.com/docs/display/ROS/Queues, Diakses: 9 Agustus 2025, 14:29</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Packet Sniffer, https://help.mikrotik.com/docs/display/ROS/Packet+Sniffer, Diakses: 9 Agustus 2025, 14:46</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Torch, https://help.mikrotik.com/docs/display/ROS/Torch, Diakses: 9 Agustus 2025, 14:53</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Graphing, https://help.mikrotik.com/docs/display/ROS/Graphing, Diakses: 9 Agustus 2025, 15:06</div>
-                <div class="bib-item">MikroTik Documentation, 2024, DHCP Server, https://help.mikrotik.com/docs/display/ROS/DHCP+Server, Diakses: 9 Agustus 2025, 15:13</div>
-                <div class="bib-item">MikroTik Documentation, 2024, DNS, https://help.mikrotik.com/docs/display/ROS/DNS, Diakses: 9 Agustus 2025, 15:24</div>
-                <div class="bib-item">MikroTik Documentation, 2024, NTP, https://help.mikrotik.com/docs/display/ROS/NTP, Diakses: 9 Agustus 2025, 15:37</div>
-                <div class="bib-item">MikroTik Documentation, 2024, SNMP, https://help.mikrotik.com/docs/display/ROS/SNMP, Diakses: 9 Agustus 2025, 15:45</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Scripting, https://help.mikrotik.com/docs/display/ROS/Scripting, Diakses: 9 Agustus 2025, 15:58</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Scheduler, https://help.mikrotik.com/docs/display/ROS/Scheduler, Diakses: 9 Agustus 2025, 16:04</div>
-                <div class="bib-item">MikroTik Documentation, 2024, Software License (RouterOS), https://help.mikrotik.com/docs/display/ROS/Software+license, Diakses: 9 Agustus 2025, 16:18</div>
-                <div class="bib-item">MikroTik Documentation, 2024, CHR Licensing, https://help.mikrotik.com/docs/display/ROS/CHR, Diakses: 9 Agustus 2025, 16:26</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:IP/Firewall, https://wiki.mikrotik.com/wiki/Manual:IP/Firewall, Diakses: 9 Agustus 2025, 16:38</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:Queues – PCQ, https://wiki.mikrotik.com/wiki/Manual:Queues_-_PCQ, Diakses: 9 Agustus 2025, 16:45</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:Wireless AP/Client/WDS, https://wiki.mikrotik.com/wiki/Manual:Wireless, Diakses: 9 Agustus 2025, 16:54</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:CAPsMAN, https://wiki.mikrotik.com/wiki/Manual:CAPsMAN, Diakses: 9 Agustus 2025, 17:02</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:Hotspot, https://wiki.mikrotik.com/wiki/Manual:IP/Hotspot, Diakses: 9 Agustus 2025, 17:09</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:User Manager, https://wiki.mikrotik.com/wiki/User_Manager, Diakses: 9 Agustus 2025, 17:12</div>
-                <div class="bib-item">MikroTik Wiki, 2023, Manual:License, https://wiki.mikrotik.com/wiki/Manual:License, Diakses: 9 Agustus 2025, 17:19</div>
-                <div class="bib-item">IETF RFC 4271, 2006, A Border Gateway Protocol 4 (BGP-4), https://www.rfc-editor.org/rfc/rfc4271, Diakses: 9 Agustus 2025, 17:28</div>
-                <div class="bib-item">IETF RFC 2328, 1998, OSPF Version 2, https://www.rfc-editor.org/rfc/rfc2328, Diakses: 9 Agustus 2025, 17:35</div>
-                <div class="bib-item">IETF RFC 2453, 1998, RIP Version 2, https://www.rfc-editor.org/rfc/rfc2453, Diakses: 9 Agustus 2025, 17:42</div>
-                <div class="bib-item">IETF RFC 3022, 2001, Traditional NAT, https://www.rfc-editor.org/rfc/rfc3022, Diakses: 9 Agustus 2025, 17:46</div>
-                <div class="bib-item">IETF RFC 2865, 2000, Remote Authentication Dial In User Service (RADIUS), https://www.rfc-editor.org/rfc/rfc2865, Diakses: 9 Agustus 2025, 17:51</div>
-                <div class="bib-item">IETF RFC 3411, 2002, An Architecture for Describing SNMP Management Frameworks, https://www.rfc-editor.org/rfc/rfc3411, Diakses: 9 Agustus 2025, 17:59</div>
-                <div class="bib-item">IETF RFC 2131, 1997, Dynamic Host Configuration Protocol, https://www.rfc-editor.org/rfc/rfc2131, Diakses: 9 Agustus 2025, 18:05</div>
-                <div class="bib-item">IETF RFC 1035, 1987, Domain Names – Implementation and Specification, https://www.rfc-editor.org/rfc/rfc1035, Diakses: 9 Agustus 2025, 18:12</div>
-                <div class="bib-item">IETF RFC 5905, 2010, Network Time Protocol Version 4, https://www.rfc-editor.org/rfc/rfc5905, Diakses: 9 Agustus 2025, 18:18</div>
-                <div class="bib-item">IETF RFC 2661, 1999, Layer Two Tunneling Protocol "L2TP", https://www.rfc-editor.org/rfc/rfc2661, Diakses: 9 Agustus 2025, 18:24</div>
-                <div class="bib-item">OpenVPN Documentation, 2020, OpenVPN 2.5 Reference Manual, https://openvpn.net/community-resources/reference-manual-for-openvpn-2-5, Diakses: 9 Agustus 2025, 18:32</div>
-                <div class="bib-item">IEEE, 2016, IEEE 802.11-2016 Standard, https://standards.ieee.org/standard/802_11-2016.html, Diakses: 9 Agustus 2025, 18:41</div>
-                <div class="bib-item">LARTC, 2002, HTB Linux Queuing Discipline, https://lartc.org/howto/lartc.qdisc.classful.html#AEN682, Diakses: 9 Agustus 2025, 18:47</div>
-                <div class="bib-item">Ansible Documentation, 2024, community.routeros Collection, https://docs.ansible.com/ansible/latest/collections/community/routeros, Diakses: 9 Agustus 2025, 18:54</div>
-                <div class="bib-item">MikroTik, 2024, Software – RouterOS Overview, https://mikrotik.com/software, Diakses: 9 Agustus 2025, 19:02</div>
+            <div class="references fade-in">
+                <h2>Daftar Pustaka</h2>
+                
+                <div class="reference-item" style="--index: 1;">
+                    MikroTik, 2025, Support - MikroTik, https://mikrotik.com/support, diakses pada 9 Agustus 2025, pukul 07:37.
+                </div>
+                
+                <div class="reference-item" style="--index: 2;">
+                    MikroTik, 2024, About - MikroTik Routers and Wireless, https://mikrotik.com/aboutus, diakses pada 9 Agustus 2025, pukul 07:45.
+                </div>
+                
+                <div class="reference-item" style="--index: 3;">
+                    MikroTik, 2025, Wireless for Home and Office - MikroTik, https://mikrotik.com/products/group/wireless-for-home-and-office, diakses pada 9 Agustus 2025, pukul 07:55.
+                </div>
+                
+                <div class="reference-item" style="--index: 4;">
+                    Enlyft, 2025, MikroTik Products, https://enlyft.com/tech/products/mikrotik, diakses pada 9 Agustus 2025, pukul 08:08.
+                </div>
+                
+                <div class="reference-item" style="--index: 5;">
+                    NetworkTik, 2025, Background of MikroTik company and where it is based?, https://networktik.com/background-of-mikrotik-company-and-where-it_is_based/, diakses pada 9 Agustus 2025, pukul 08:19.
+                </div>
+                
+                <div class="reference-item" style="--index: 6;">
+                    MikroTik, 2025, Products - MikroTik Routers and Wireless, https://mikrotik.com/products, diakses pada 9 Agustus 2025, pukul 08:33.
+                </div>
+                
+                <div class="reference-item" style="--index: 7;">
+                    MikroTik Forum, 2025, Re: Almost giving up, https://forum.mikrotik.com/t/almost-giving-up/182231/1, diakses pada 9 Agustus 2025, pukul 08:49.
+                </div>
+                
+                <div class="reference-item" style="--index: 8;">
+                    Wikipedia, 2023, MikroTik - Wikipedia, https://en.wikipedia.org/wiki/MikroTik, diakses pada 9 Agustus 2025, pukul 09:05.
+                </div>
+                
+                <div class="reference-item" style="--index: 9;">
+                    MikroTik, 2025, New Products - MikroTik, https://mikrotik.com/products/group/new, diakses pada 9 Agustus 2025, pukul 09:16.
+                </div>
+                
+                <div class="reference-item" style="--index: 10;">
+                    MikroTik Documentation, 2024, Software Specifications, https://help.mikrotik.com/docs/spaces/ROS/pages/19136707/Software%2BSpecifications, diakses pada 9 Agustus 2025, pukul 09:28.
+                </div>
+                
+                <div class="reference-item" style="--index: 11;">
+                    Netmaker, 2025, MikroTik RouterOS, https://www.netmaker.io/resources/mikrotik-routeros, diakses pada 9 Agustus 2025, pukul 09:40.
+                </div>
+                
+                <div class="reference-item" style="--index: 12;">
+                    EE-Diary.com, 2023, Mikrotik CCR Routers, https://www.ee-diary.com/2023/07/mikrotik-ccr-routers.html, diakses pada 9 Agustus 2025, pukul 09:58.
+                </div>
+                
+                <div class="reference-item" style="--index: 13;">
+                    MikroTik, 2025, hAP - MikroTik Routers and Wireless - Products, https://mikrotik.com/product/RB951Ui-2nD, diakses pada 9 Agustus 2025, pukul 10:02.
+                </div>
+                
+                <div class="reference-item" style="--index: 14;">
+                    MikroTik, 2025, hAP ac² - MikroTik Routers and Wireless - Products, https://mikrotik.com/product/hap_ac2, diakses pada 9 Agustus 2025, pukul 10:11.
+                </div>
+                
+                <div class="reference-item" style="--index: 15;">
+                    PeerSpot, 2025, MikroTik Routers and Switches Reviews - PeerSpot, https://www.peerspot.com/products/mikrotik-routers-and-switches-pros-and-cons, diakses pada 9 Agustus 2025, pukul 10:24.
+                </div>
+                
+                <div class="reference-item" style="--index: 16;">
+                    1Gbits, 2025, Cisco vs MikroTik, https://1gbits.com/blog/cisco-vs-mikrotik/, diakses pada 9 Agustus 2025, pukul 10:35.
+                </div>
+                
+                <div class="reference-item" style="--index: 17;">
+                    MikroTik, 2025, What is RouterOS (PDF), https://i.mt.lv/files/pdf/instructions/what_is_routeros.pdf, diakses pada 9 Agustus 2025, pukul 10:41.
+                </div>
+                
+                <div class="reference-item" style="--index: 18;">
+                    TutorialMikroTik.com, 2025, MikroTik CCR Cloud Core Router, https://tutorialmikrotik.com/mikrotik-ccr-cloud-core-router/, diakses pada 9 Agustus 2025, pukul 10:50.
+                </div>
+                
+                <div class="reference-item" style="--index: 19;">
+                    MikroTik, 2025, hAP ax2 - MikroTik, https://mikrotik.com/product/hap_ax2, diakses pada 9 Agustus 2025, pukul 11:09.
+                </div>
+                
+                <div class="reference-item" style="--index: 20;">
+                    BroadbandBuyer, 2025, What is MikroTik RouterOS? Part One, https://www.broadbandbuyer.com/advice/2163-what-is-mikrotik-routeros-part-one/, diakses pada 9 Agustus 2025, pukul 11:21.
+                </div>
+                
+                <div class="reference-item" style="--index: 21;">
+                    MKController, 2025, What is Mikrotik?, https://mkcontroller.com/what-is-mikrotik/, diakses pada 9 Agustus 2025, pukul 11:34.
+                </div>
+                
+                <div class="reference-item" style="--index: 22;">
+                    MikroTik, 2024, MikroTik and Ampere co-developing a groundbreaking product line with server-class CPUs, https://help.mikrotik.com/docs/spaces/ROS/blog/2024/09/24/271974440/MikroTik%2Band%2BAmpere%2Bco-developing%2Ba%2Bgroundbreaking%2Bproduct%2Bline%2Bwith%2Bserver-class%2BCPUs, diakses pada 9 Agustus 2025, pukul 11:51.
+                </div>
+                
+                <div class="reference-item" style="--index: 23;">
+                    MKController, 2025, Reasons to Use MikroTik: 11 Reasons to Choose the Ideal Network Solution for Your Business, https://mkcontroller.com/reasons-to-use-mikrotik-11-reasons-to-choose-the-ideal-network-solution-for-your-business/, diakses pada 9 Agustus 2025, pukul 12:07.
+                </div>
+                
+                <div class="reference-item" style="--index: 24;">
+                    MikroTik, 2025, About MikroTik Training, https://mikrotik.com/training/about, diakses pada 9 Agustus 2025, pukul 12:12.
+                </div>
+                
+                <div class="reference-item" style="--index: 25;">
+                    Herza.ID, 2025, Jenis-Jenis MikroTik, https://herza.id/blog/jenis-jenis-mikrotik/, diakses pada 9 Agustus 2025, pukul 12:47.
+                </div>
+                
+                <div class="reference-item" style="--index: 26;">
+                    Reddit, 2013, Roadmap future products : r/mikrotik, https://www.reddit.com/r/mikrotik/comments/1k16b5r/roadmap_future_products/, diakses pada 9 Agustus 2025, pukul 12:55.
+                </div>
+                
+                <div class="reference-item" style="--index: 27;">
+                    MikroTik, 2025, Software - MikroTik, https://mikrotik.com/software, diakses pada 9 Agustus 2025, pukul 13:01.
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         // Scroll indicator
-        window.addEventListener('scroll', function() {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (scrollTop / scrollHeight) * 100;
-            document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
-        });
-        
-        // Smooth scroll behavior
-        document.documentElement.style.scrollBehavior = 'smooth';
-        
-        // Keyboard shortcut for scroll to top
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Home') {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+        function updateScrollIndicator() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollIndicator.style.transform = `scaleX(${scrollPercent / 100})`;
+        }
+
+        window.addEventListener('scroll', updateScrollIndicator);
+
+        // Fade in animation on scroll
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
+            const windowHeight = window.innerHeight;
+
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+
+        // Smooth scroll for better performance
+        let ticking = false;
+
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateAnimations);
+                ticking = true;
             }
+        }
+
+        function updateAnimations() {
+            updateScrollIndicator();
+            handleScrollAnimation();
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', requestTick);
+
+        // Initialize animations on load
+        window.addEventListener('load', function() {
+            document.body.style.overflow = 'visible';
+            handleScrollAnimation();
         });
     </script>
 </body>
